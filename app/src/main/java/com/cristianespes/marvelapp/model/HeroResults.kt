@@ -1,22 +1,27 @@
 package com.cristianespes.marvelapp.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+@Parcelize
 data class CharacterDataWrapper(
     val code: Int?,
     val status: String?,
     val etag: String?,
     val data: CharacterDataContainer?
-)
+) : Parcelable
 
+@Parcelize
 data class CharacterDataContainer(
     val offset: Int?,
     val limit: Int?,
     val total: Int?,
     val count: Int?,
     val results: List<Character>
-)
+) : Parcelable
 
+@Parcelize
 data class Character(
     val id: Int?,
     val name: String?,
@@ -24,12 +29,13 @@ data class Character(
     val modified: Date?,
     val resourceURI: String?,
     val thumbnail: CharacterImage?
-)
+) : Parcelable
 
+@Parcelize
 data class CharacterImage(
     val path: String?,
     val extension: String?
-)
+) : Parcelable
 
 /*
 CharacterDataWrapper {

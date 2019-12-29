@@ -10,21 +10,26 @@ import kotlinx.coroutines.launch
 
 class MainActivity : CoroutineScopeActivity() {
 
-    private val herosAdapter = HerosAdapter()
+    private val herosAdapter = HerosAdapter {
+        startActivity<DetailActivity> {
+            putExtra(DetailActivity.HERO, it)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerViewHeros.adapter = herosAdapter
-
         launch {
             val heros = MarvelDb.service.listHerosAsync(
                 BuildConfig.API_TS,
                 BuildConfig.API_KEY,
-                BuildConfig.API_HASH
+                BuildConfig.API_HASH,
+                80
             ).await()
             herosAdapter.heroes = heros.data?.results ?: emptyList()
         }
+
+        recyclerViewHeros.adapter = herosAdapter
     }
 }

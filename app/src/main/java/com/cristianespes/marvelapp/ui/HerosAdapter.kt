@@ -9,7 +9,7 @@ import com.cristianespes.marvelapp.model.Character
 import kotlinx.android.synthetic.main.view_hero.view.*
 import kotlin.properties.Delegates
 
-class HerosAdapter : RecyclerView.Adapter<HerosAdapter.ViewHolder>() {
+class HerosAdapter(private val listener: (Character) -> Unit) : RecyclerView.Adapter<HerosAdapter.ViewHolder>() {
 
     var heroes: List<Character> by Delegates.observable(emptyList()) { _, old, new ->
         DiffUtil.calculateDiff(object : DiffUtil.Callback() {
@@ -33,7 +33,9 @@ class HerosAdapter : RecyclerView.Adapter<HerosAdapter.ViewHolder>() {
     override fun getItemCount(): Int = heroes.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(heroes[position])
+        val hero = heroes[position]
+        holder.bind(hero)
+        holder.itemView.setOnClickListener { listener(hero) }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
