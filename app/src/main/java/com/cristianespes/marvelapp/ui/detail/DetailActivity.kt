@@ -1,11 +1,10 @@
-package com.cristianespes.marvelapp.ui
+package com.cristianespes.marvelapp.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.text.bold
-import androidx.core.text.buildSpannedString
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.Character
+import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {

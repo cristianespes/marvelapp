@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp.ui
+package com.cristianespes.marvelapp.ui.common
 
 import android.app.Activity
 import android.content.Context

@@ -1,9 +1,12 @@
-package com.cristianespes.marvelapp.ui
+package com.cristianespes.marvelapp.ui.main
 
 import android.os.Bundle
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.MarvelRepository
 import com.cristianespes.marvelapp.ui.common.CoroutineScopeActivity
+import com.cristianespes.marvelapp.ui.common.startActivity
+import com.cristianespes.marvelapp.ui.detail.DetailActivity
+import com.cristianespes.marvelapp.ui.main.HerosAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 

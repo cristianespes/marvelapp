@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp.ui
+package com.cristianespes.marvelapp.ui.detail
 
 import android.content.Context
 import android.util.AttributeSet

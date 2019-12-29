@@ -1,13 +1,14 @@
-package com.cristianespes.marvelapp.ui
+package com.cristianespes.marvelapp.ui.main
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.Character
+import com.cristianespes.marvelapp.ui.common.basicDiffUtil
+import com.cristianespes.marvelapp.ui.common.inflate
+import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.view_hero.view.*
-import kotlin.properties.Delegates
 
 class HerosAdapter(private val listener: (Character) -> Unit) : RecyclerView.Adapter<HerosAdapter.ViewHolder>() {
 
