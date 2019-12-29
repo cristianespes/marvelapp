@@ -39,6 +39,7 @@ class HerosAdapter : RecyclerView.Adapter<HerosAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(hero: Character) {
             itemView.heroName.text = hero.name
+            itemView.heroImage.loadUrl(hero.thumbnail?.path.plus(".${hero.thumbnail?.extension}"))
         }
     }
 }
