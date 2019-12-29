@@ -1,16 +1,14 @@
 package com.cristianespes.marvelapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.cristianespes.marvelapp.BuildConfig
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.MarvelDb
+import com.cristianespes.marvelapp.ui.common.CoroutineScopeActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : CoroutineScopeActivity() {
 
     private val herosAdapter = HerosAdapter()
 
@@ -20,8 +18,8 @@ class MainActivity : AppCompatActivity() {
 
         recyclerViewHeros.adapter = herosAdapter
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val heros = MarvelDb.service.listHeros(
+        launch {
+            val heros = MarvelDb.service.listHerosAsync(
                 BuildConfig.API_TS,
                 BuildConfig.API_KEY,
                 BuildConfig.API_HASH

@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface MarvelService {
     @GET("characters")
-    fun listHeros(@Query("ts") ts: String, @Query("apikey") apiKey: String, @Query("hash") hash: String): Deferred<CharacterDataWrapper>
+    fun listHerosAsync(@Query("ts") ts: String, @Query("apikey") apiKey: String, @Query("hash") hash: String): Deferred<CharacterDataWrapper>
 }
