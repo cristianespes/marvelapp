@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp
+package com.cristianespes.marvelapp.ui
 
 import android.content.Context
 import android.view.LayoutInflater

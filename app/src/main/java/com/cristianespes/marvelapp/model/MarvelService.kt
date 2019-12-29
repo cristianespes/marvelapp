@@ -1,5 +1,6 @@
-package com.cristianespes.marvelapp
+package com.cristianespes.marvelapp.model
 
+import com.cristianespes.marvelapp.model.CharacterDataWrapper
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query

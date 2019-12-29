@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.cristianespes.marvelapp.MainActivity">
+        <activity android:name="com.cristianespes.marvelapp.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

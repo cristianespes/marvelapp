@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp
+package com.cristianespes.marvelapp.model
 
 import java.util.*
 

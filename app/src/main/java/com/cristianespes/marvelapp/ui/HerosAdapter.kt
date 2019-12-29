@@ -1,9 +1,11 @@
-package com.cristianespes.marvelapp
+package com.cristianespes.marvelapp.ui
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.cristianespes.marvelapp.R
+import com.cristianespes.marvelapp.model.Character
 import kotlinx.android.synthetic.main.view_hero.view.*
 import kotlin.properties.Delegates
 
