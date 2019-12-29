@@ -1,6 +1,7 @@
 package com.cristianespes.marvelapp.ui.main
 
 import android.os.Bundle
+import android.view.View
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.MarvelRepository
 import com.cristianespes.marvelapp.ui.common.CoroutineScopeActivity
@@ -27,7 +28,9 @@ class MainActivity : CoroutineScopeActivity() {
         recyclerViewHeros.adapter = herosAdapter
 
         launch {
+            progress.visibility = View.VISIBLE
             herosAdapter.heroes = marvelRepository.findPopularHeroes().data?.results ?: emptyList()
+            progress.visibility = View.GONE
         }
     }
 }
