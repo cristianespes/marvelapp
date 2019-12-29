@@ -11,19 +11,11 @@ import kotlin.properties.Delegates
 
 class HerosAdapter(private val listener: (Character) -> Unit) : RecyclerView.Adapter<HerosAdapter.ViewHolder>() {
 
-    var heroes: List<Character> by Delegates.observable(emptyList()) { _, old, new ->
-        DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                old[oldItemPosition].id == new[newItemPosition].id
+    var heroes: List<Character> by basicDiffUtil(
+        emptyList(),
+        areItemsTheSame = { old, new -> old.id == new.id }
+    )
 
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                old[oldItemPosition] == new[newItemPosition]
-
-            override fun getOldListSize(): Int = old.size
-
-            override fun getNewListSize(): Int = new.size
-        }).dispatchUpdatesTo(this)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = parent.inflate(R.layout.view_hero, false)
