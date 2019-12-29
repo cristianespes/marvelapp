@@ -25,23 +25,7 @@ class DetailActivity : AppCompatActivity() {
 
             heroDetailSummary.text = description
 
-            heroDetailInfo.text = buildSpannedString {
-
-                bold { append("Original language: ") }
-                //appendln(originalLanguage)
-
-                bold { append("Original title: ") }
-                //appendln(originalTitle)
-
-                bold { append("Release date: ") }
-                //appendln(releaseDate)
-
-                bold { append("Popularity: ") }
-                //appendln(popularity.toString())
-
-                bold { append("Vote Average: ") }
-                //append(voteAverage.toString())
-            }
+            heroDetailInfo.setHero(this)
         }
     }
 }
