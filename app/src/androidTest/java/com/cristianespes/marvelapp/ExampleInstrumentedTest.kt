@@ -1,4 +1,4 @@
-package com.example.marvelapp
+package com.cristianespes.marvelapp
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
