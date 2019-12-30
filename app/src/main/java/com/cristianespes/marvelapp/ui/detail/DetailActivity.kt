@@ -3,9 +3,9 @@ package com.cristianespes.marvelapp.ui.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.Character
+import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.lang.IllegalStateException
@@ -25,10 +25,8 @@ class DetailActivity : AppCompatActivity() {
         val hero: Character = intent.getParcelableExtra(HERO)
             ?: throw (IllegalStateException("Hero not found"))
 
-        viewModel = ViewModelProviders.of(
-            this,
-            DetailViewModelFactory(hero)
-        )[DetailViewModel::class.java]
+        viewModel = getViewModel { DetailViewModel(hero) }
+
 
         viewModel.model.observe(this, Observer(::updateUi))
     }

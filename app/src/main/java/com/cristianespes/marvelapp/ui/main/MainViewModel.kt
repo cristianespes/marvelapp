@@ -48,8 +48,3 @@ class MainViewModel(
         super.onCleared()
     }
 }
-
-@Suppress("UNCHECKED_CAST")
-class MainViewModelFactory(private val marvelRepository: MarvelRepository): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(marvelRepository) as T
-}

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.MarvelRepository
+import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.startActivity
 import com.cristianespes.marvelapp.ui.detail.DetailActivity
 import com.cristianespes.marvelapp.ui.main.MainViewModel.UiModel
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this, MainViewModelFactory(MarvelRepository()))[MainViewModel::class.java]
+        viewModel = getViewModel { MainViewModel(MarvelRepository()) }
 
         herosAdapter = HerosAdapter(viewModel::onMovieClicked)
         recyclerViewHeros.adapter = herosAdapter
