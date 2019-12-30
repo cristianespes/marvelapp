@@ -2,19 +2,21 @@ package com.cristianespes.marvelapp.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.Character
 import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.lang.IllegalStateException
 
-class DetailActivity : AppCompatActivity(), DetailPresenter.View {
+class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val HERO = "DetailActivity:hero"
     }
 
-    private val presenter = DetailPresenter()
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,16 +25,15 @@ class DetailActivity : AppCompatActivity(), DetailPresenter.View {
         val hero: Character = intent.getParcelableExtra(HERO)
             ?: throw (IllegalStateException("Hero not found"))
 
-        presenter.onCreate(this, hero)
+        viewModel = ViewModelProviders.of(
+            this,
+            DetailViewModelFactory(hero)
+        )[DetailViewModel::class.java]
+
+        viewModel.model.observe(this, Observer(::updateUi))
     }
 
-    override fun onDestroy() {
-        presenter.onDestroy()
-
-        super.onDestroy()
-    }
-
-    override fun updateUI(hero: Character) = with(hero) {
+    private fun updateUi(model: DetailViewModel.UiModel) = with(model.hero) {
         heroDetailToolbar.title = name
         heroDetailImage.loadUrl(thumbnail?.path.plus(".${thumbnail?.extension}"))
         heroDetailSummary.text = description

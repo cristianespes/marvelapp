@@ -1,40 +1,55 @@
 package com.cristianespes.marvelapp.ui.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.cristianespes.marvelapp.model.Character
 import com.cristianespes.marvelapp.model.MarvelRepository
 import com.cristianespes.marvelapp.ui.common.Scope
 import kotlinx.coroutines.launch
 
-class MainPresenter(private val marvelRepository: MarvelRepository) : Scope by Scope.Impl() {
+class MainViewModel(
+    private val marvelRepository: MarvelRepository
+) : ViewModel(), Scope by Scope.Impl() {
 
-    interface View {
-        fun showProgress()
-        fun hideProgress()
-        fun updateData(heroes: List<Character>)
-        fun navigateTo(hero: Character)
+    sealed class UiModel {
+        object Loading : UiModel()
+        class Content(val heros: List<Character>) : UiModel()
+        class Navigation(val hero: Character) : UiModel()
     }
 
-    private var view: View? = null
+    private val _model = MutableLiveData<UiModel>()
+    val model: LiveData<UiModel>
+        get() {
+            if (_model.value == null) refresh()
+            return _model
+        }
 
-    fun onCreate(view: View) {
+    init {
         initScope()
+    }
 
-        this.view = view
+    private fun refresh() {
 
         launch {
-            view.showProgress()
-            view.updateData(marvelRepository.findPopularHeroes().data?.results ?: emptyList())
-            view.hideProgress()
+            _model.value = UiModel.Loading
+            _model.value = UiModel.Content(marvelRepository.findPopularHeroes().data?.results ?: emptyList())
         }
     }
 
     fun onMovieClicked(hero: Character) {
-        view?.navigateTo(hero)
+        _model.value = UiModel.Navigation(hero)
     }
 
-    fun onDestroy() {
-        this.view = null
-
+    override fun onCleared() {
         destroyScope()
+
+        super.onCleared()
     }
+}
+
+@Suppress("UNCHECKED_CAST")
+class MainViewModelFactory(private val marvelRepository: MarvelRepository): ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(marvelRepository) as T
 }

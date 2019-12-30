@@ -3,48 +3,40 @@ package com.cristianespes.marvelapp.ui.main
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.Character
 import com.cristianespes.marvelapp.model.MarvelRepository
 import com.cristianespes.marvelapp.ui.common.startActivity
 import com.cristianespes.marvelapp.ui.detail.DetailActivity
+import com.cristianespes.marvelapp.ui.main.MainViewModel.UiModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainPresenter.View {
+class MainActivity : AppCompatActivity() {
 
-    private val presenter by lazy { MainPresenter(MarvelRepository()) }
-    private val herosAdapter = HerosAdapter(presenter::onMovieClicked)
+    private lateinit var viewModel: MainViewModel
+    private lateinit var herosAdapter: HerosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter.onCreate(this)
+        viewModel = ViewModelProviders.of(this, MainViewModelFactory(MarvelRepository()))[MainViewModel::class.java]
 
+        herosAdapter = HerosAdapter(viewModel::onMovieClicked)
         recyclerViewHeros.adapter = herosAdapter
+
+        viewModel.model.observe(this, Observer(::updateUi))
     }
 
-    override fun onDestroy() {
-        presenter.onDestroy()
+    private fun updateUi(model: UiModel) {
+        progress.visibility = if (model == UiModel.Loading) View.VISIBLE else View.GONE
 
-        super.onDestroy()
-    }
-
-    override fun showProgress() {
-        progress.visibility = View.VISIBLE
-    }
-
-    override fun hideProgress() {
-        progress.visibility = View.GONE
-    }
-
-    override fun updateData(heroes: List<Character>) {
-        herosAdapter.heroes = heroes
-    }
-
-    override fun navigateTo(hero: Character) {
-        startActivity<DetailActivity> {
-            putExtra(DetailActivity.HERO, hero)
+        when (model) {
+            is UiModel.Content -> herosAdapter.heroes = model.heros
+            is UiModel.Navigation -> startActivity<DetailActivity> {
+                putExtra(DetailActivity.HERO, model.hero)
+            }
         }
     }
 }
