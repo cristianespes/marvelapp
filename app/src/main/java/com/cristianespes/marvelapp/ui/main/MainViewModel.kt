@@ -3,9 +3,9 @@ package com.cristianespes.marvelapp.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.cristianespes.marvelapp.model.Character
 import com.cristianespes.marvelapp.model.MarvelRepository
+import com.cristianespes.marvelapp.ui.common.Event
 import com.cristianespes.marvelapp.ui.common.Scope
 import kotlinx.coroutines.launch
 
@@ -16,7 +16,6 @@ class MainViewModel(
     sealed class UiModel {
         object Loading : UiModel()
         class Content(val heros: List<Character>) : UiModel()
-        class Navigation(val hero: Character) : UiModel()
     }
 
     private val _model = MutableLiveData<UiModel>()
@@ -26,12 +25,14 @@ class MainViewModel(
             return _model
         }
 
+    private val _navigation = MutableLiveData<Event<Character>>()
+    val navigation: LiveData<Event<Character>> = _navigation
+
     init {
         initScope()
     }
 
     private fun refresh() {
-
         launch {
             _model.value = UiModel.Loading
             _model.value = UiModel.Content(marvelRepository.findPopularHeroes().data?.results ?: emptyList())
@@ -39,7 +40,7 @@ class MainViewModel(
     }
 
     fun onMovieClicked(hero: Character) {
-        _model.value = UiModel.Navigation(hero)
+        _navigation.value = Event(hero)
     }
 
     override fun onCleared() {

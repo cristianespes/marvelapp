@@ -27,6 +27,14 @@ class MainActivity : AppCompatActivity() {
         recyclerViewHeros.adapter = herosAdapter
 
         viewModel.model.observe(this, Observer(::updateUi))
+
+        viewModel.navigation.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                startActivity<DetailActivity> {
+                    putExtra(DetailActivity.HERO, it)
+                }
+            }
+        })
     }
 
     private fun updateUi(model: UiModel) {
@@ -34,9 +42,6 @@ class MainActivity : AppCompatActivity() {
 
         when (model) {
             is UiModel.Content -> herosAdapter.heroes = model.heros
-            is UiModel.Navigation -> startActivity<DetailActivity> {
-                putExtra(DetailActivity.HERO, model.hero)
-            }
         }
     }
 }
