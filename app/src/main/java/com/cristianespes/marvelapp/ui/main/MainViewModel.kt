@@ -3,8 +3,8 @@ package com.cristianespes.marvelapp.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cristianespes.marvelapp.model.Character
-import com.cristianespes.marvelapp.model.MarvelRepository
+import com.cristianespes.marvelapp.model.server.Character
+import com.cristianespes.marvelapp.model.server.MarvelRepository
 import com.cristianespes.marvelapp.ui.common.Event
 import com.cristianespes.marvelapp.ui.common.Scope
 import kotlinx.coroutines.launch

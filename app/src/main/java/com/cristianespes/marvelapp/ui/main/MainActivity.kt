@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.MarvelRepository
+import com.cristianespes.marvelapp.model.server.MarvelRepository
 import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.startActivity
 import com.cristianespes.marvelapp.ui.detail.DetailActivity

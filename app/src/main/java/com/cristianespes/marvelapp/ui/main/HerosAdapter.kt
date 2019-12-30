@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.Character
+import com.cristianespes.marvelapp.model.server.Character
 import com.cristianespes.marvelapp.ui.common.basicDiffUtil
 import com.cristianespes.marvelapp.ui.common.inflate
 import com.cristianespes.marvelapp.ui.common.loadUrl

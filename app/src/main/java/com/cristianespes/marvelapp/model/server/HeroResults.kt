@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp.model
+package com.cristianespes.marvelapp.model.server
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

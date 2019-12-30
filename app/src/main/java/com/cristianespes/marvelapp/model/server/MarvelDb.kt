@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp.model
+package com.cristianespes.marvelapp.model.server
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient

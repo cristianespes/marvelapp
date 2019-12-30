@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.core.text.bold
-import com.cristianespes.marvelapp.model.Character
+import com.cristianespes.marvelapp.model.server.Character
 
 class HeroDetailInfoView @JvmOverloads constructor(
     context: Context,

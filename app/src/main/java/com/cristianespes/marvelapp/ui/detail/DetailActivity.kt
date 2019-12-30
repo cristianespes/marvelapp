@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.Character
+import com.cristianespes.marvelapp.model.server.Character
 import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.activity_detail.*

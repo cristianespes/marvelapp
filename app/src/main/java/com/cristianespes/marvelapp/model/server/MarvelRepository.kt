@@ -1,6 +1,7 @@
-package com.cristianespes.marvelapp.model
+package com.cristianespes.marvelapp.model.server
 
 import com.cristianespes.marvelapp.BuildConfig
+import com.cristianespes.marvelapp.model.server.MarvelDb
 
 class MarvelRepository {
 

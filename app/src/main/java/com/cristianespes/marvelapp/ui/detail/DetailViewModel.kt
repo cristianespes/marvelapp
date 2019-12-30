@@ -3,7 +3,7 @@ package com.cristianespes.marvelapp.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cristianespes.marvelapp.model.Character
+import com.cristianespes.marvelapp.model.server.Character
 
 class DetailViewModel(private val hero: Character) : ViewModel() {
 
