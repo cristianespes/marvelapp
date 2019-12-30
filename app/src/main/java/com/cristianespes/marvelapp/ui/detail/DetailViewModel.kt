@@ -18,9 +18,15 @@ class DetailViewModel(private val heroId: Int, private val marvelRepository: Mar
             return _model
         }
 
-    private fun findHero() {
-        launch {
-            _model.value = UiModel(marvelRepository.findById(heroId))
+    fun onFavoriteClicked() = launch {
+        _model.value?.hero?.let {
+            val updatedHero = it.copy(favorite = !it.favorite)
+            _model.value = UiModel(updatedHero)
+            marvelRepository.update(updatedHero)
         }
     }
+
+    private fun findHero() = launch {
+            _model.value = UiModel(marvelRepository.findById(heroId))
+        }
 }

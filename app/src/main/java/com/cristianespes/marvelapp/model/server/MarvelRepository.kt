@@ -32,6 +32,11 @@ class MarvelRepository(application: MarvelApp) {
     suspend fun findById(id: Int): Hero = withContext(Dispatchers.IO) {
         db.marvelDao().findById(id)
     }
+
+    suspend fun update(hero: Hero) = withContext(Dispatchers.IO) {
+        db.marvelDao().updateHero(hero)
+    }
+
 }
 
 private fun Character.convertToHero() = Hero(

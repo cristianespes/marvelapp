@@ -26,6 +26,8 @@ class DetailActivity : AppCompatActivity() {
 
 
         viewModel.model.observe(this, Observer(::updateUi))
+
+        heroDetailFavorite.setOnClickListener { viewModel.onFavoriteClicked() }
     }
 
     private fun updateUi(model: DetailViewModel.UiModel) = with(model.hero) {
@@ -33,5 +35,8 @@ class DetailActivity : AppCompatActivity() {
         heroDetailImage.loadUrl(thumbnail ?: "")
         heroDetailSummary.text = description
         heroDetailInfo.setHero(this)
+
+        val icon = if (favorite) R.drawable.ic_favorite_on else R.drawable.ic_favorite_off
+        heroDetailFavorite.setImageDrawable(getDrawable(icon))
     }
 }

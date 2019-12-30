@@ -11,5 +11,6 @@ data class Hero(
     val name: String?,
     val description: String?,
     val modified: Date?,
-    val thumbnail: String?
+    val thumbnail: String?,
+    val favorite: Boolean = false
 )
