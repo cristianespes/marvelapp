@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var herosAdapter: HerosAdapter
+    private lateinit var heroesAdapter: HeroesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = getViewModel { MainViewModel(MarvelRepository()) }
 
-        herosAdapter = HerosAdapter(viewModel::onMovieClicked)
-        recyclerViewHeros.adapter = herosAdapter
+        heroesAdapter = HeroesAdapter(viewModel::onMovieClicked)
+        recyclerViewHeroes.adapter = heroesAdapter
 
         viewModel.model.observe(this, Observer(::updateUi))
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         progress.visibility = if (model == UiModel.Loading) View.VISIBLE else View.GONE
 
         when (model) {
-            is UiModel.Content -> herosAdapter.heroes = model.heros
+            is UiModel.Content -> heroesAdapter.heroes = model.heros
         }
     }
 }

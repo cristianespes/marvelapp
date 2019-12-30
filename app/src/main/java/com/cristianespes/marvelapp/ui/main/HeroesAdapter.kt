@@ -10,7 +10,7 @@ import com.cristianespes.marvelapp.ui.common.inflate
 import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.view_hero.view.*
 
-class HerosAdapter(private val listener: (Character) -> Unit) : RecyclerView.Adapter<HerosAdapter.ViewHolder>() {
+class HeroesAdapter(private val listener: (Character) -> Unit) : RecyclerView.Adapter<HeroesAdapter.ViewHolder>() {
 
     var heroes: List<Character> by basicDiffUtil(
         emptyList(),
