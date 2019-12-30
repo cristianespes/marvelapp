@@ -14,21 +14,8 @@ class HeroDetailInfoView @JvmOverloads constructor(
 
     fun setHero(hero: Character) = with(hero) {
         text = androidx.core.text.buildSpannedString {
-
-            /*bold { append("Original language: ") }
-            appendln(originalLanguage)
-
-            bold { append("Original title: ") }
-            appendln(originalTitle)*/
-
             bold { append("Release date: ") }
             appendln(modified.toString())
-
-            /*bold { append("Popularity: ") }
-            appendln(popularity.toString())
-
-            bold { append("Vote Average: ") }
-            append(voteAverage.toString())*/
         }
     }
 }
