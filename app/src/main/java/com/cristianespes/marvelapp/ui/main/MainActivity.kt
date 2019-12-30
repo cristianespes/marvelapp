@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.server.MarvelRepository
+import com.cristianespes.marvelapp.ui.common.app
 import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.startActivity
 import com.cristianespes.marvelapp.ui.detail.DetailActivity
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = getViewModel { MainViewModel(MarvelRepository()) }
+        viewModel = getViewModel { MainViewModel(MarvelRepository(app)) }
 
         heroesAdapter = HeroesAdapter(viewModel::onMovieClicked)
         recyclerViewHeroes.adapter = heroesAdapter
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.navigation.observe(this, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 startActivity<DetailActivity> {
-                    putExtra(DetailActivity.HERO, it)
+                    putExtra(DetailActivity.HERO, it.id)
                 }
             }
         })
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         progress.visibility = if (model == UiModel.Loading) View.VISIBLE else View.GONE
 
         when (model) {
-            is UiModel.Content -> heroesAdapter.heroes = model.heros
+            is UiModel.Content -> heroesAdapter.heroes = model.heroes
         }
     }
 }

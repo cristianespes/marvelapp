@@ -2,17 +2,25 @@ package com.cristianespes.marvelapp.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.cristianespes.marvelapp.model.server.Character
+import com.cristianespes.marvelapp.model.database.Hero
+import com.cristianespes.marvelapp.model.server.MarvelRepository
+import com.cristianespes.marvelapp.ui.common.ScopedViewModel
+import kotlinx.coroutines.launch
 
-class DetailViewModel(private val hero: Character) : ViewModel() {
+class DetailViewModel(private val heroId: Int, private val marvelRepository: MarvelRepository) : ScopedViewModel() {
 
-    class UiModel(val hero: Character)
+    class UiModel(val hero: Hero)
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
         get() {
-            if (_model.value == null) _model.value = UiModel(hero)
+            if (_model.value == null) findHero()
             return _model
         }
+
+    private fun findHero() {
+        launch {
+            _model.value = UiModel(marvelRepository.findById(heroId))
+        }
+    }
 }

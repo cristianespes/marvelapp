@@ -32,7 +32,7 @@
                 android:id="@+id/heroDetailToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Hero name" />
+                tools:title="Hero name" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

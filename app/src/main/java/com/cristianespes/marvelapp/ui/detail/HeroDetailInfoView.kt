@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.core.text.bold
-import com.cristianespes.marvelapp.model.server.Character
+import com.cristianespes.marvelapp.model.database.Hero
 
 class HeroDetailInfoView @JvmOverloads constructor(
     context: Context,
@@ -12,7 +12,7 @@ class HeroDetailInfoView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : TextView(context, attrs, defStyleAttr) {
 
-    fun setHero(hero: Character) = with(hero) {
+    fun setHero(hero: Hero) = with(hero) {
         text = androidx.core.text.buildSpannedString {
             bold { append("Release date: ") }
             appendln(modified.toString())

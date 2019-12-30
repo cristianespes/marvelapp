@@ -11,11 +11,11 @@ interface MarvelDao {
     fun findById(id: Int): Hero
 
     @Query("SELECT COUNT(id) FROM Hero")
-    fun movieCount(): Int
+    fun heroesCount(): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertMovies(heroes: List<Hero>)
+    fun insertHeroes(heroes: List<Hero>)
 
     @Update
-    fun updateMovie(hero: Hero)
+    fun updateHero(hero: Hero)
 }

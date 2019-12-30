@@ -4,15 +4,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.server.Character
+import com.cristianespes.marvelapp.model.database.Hero
 import com.cristianespes.marvelapp.ui.common.basicDiffUtil
 import com.cristianespes.marvelapp.ui.common.inflate
 import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.view_hero.view.*
 
-class HeroesAdapter(private val listener: (Character) -> Unit) : RecyclerView.Adapter<HeroesAdapter.ViewHolder>() {
+class HeroesAdapter(private val listener: (Hero) -> Unit) : RecyclerView.Adapter<HeroesAdapter.ViewHolder>() {
 
-    var heroes: List<Character> by basicDiffUtil(
+    var heroes: List<Hero> by basicDiffUtil(
         emptyList(),
         areItemsTheSame = { old, new -> old.id == new.id }
     )
@@ -32,9 +32,9 @@ class HeroesAdapter(private val listener: (Character) -> Unit) : RecyclerView.Ad
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(hero: Character) {
+        fun bind(hero: Hero) {
             itemView.heroName.text = hero.name
-            itemView.heroImage.loadUrl(hero.thumbnail?.path.plus(".${hero.thumbnail?.extension}"))
+            itemView.heroImage.loadUrl(hero.thumbnail ?: "")
         }
     }
 }

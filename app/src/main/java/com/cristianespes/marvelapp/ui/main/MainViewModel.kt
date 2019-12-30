@@ -2,20 +2,19 @@ package com.cristianespes.marvelapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.cristianespes.marvelapp.model.server.Character
+import com.cristianespes.marvelapp.model.database.Hero
 import com.cristianespes.marvelapp.model.server.MarvelRepository
 import com.cristianespes.marvelapp.ui.common.Event
-import com.cristianespes.marvelapp.ui.common.Scope
+import com.cristianespes.marvelapp.ui.common.ScopedViewModel
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val marvelRepository: MarvelRepository
-) : ViewModel(), Scope by Scope.Impl() {
+) : ScopedViewModel() {
 
     sealed class UiModel {
         object Loading : UiModel()
-        class Content(val heros: List<Character>) : UiModel()
+        class Content(val heroes: List<Hero>) : UiModel()
     }
 
     private val _model = MutableLiveData<UiModel>()
@@ -25,8 +24,8 @@ class MainViewModel(
             return _model
         }
 
-    private val _navigation = MutableLiveData<Event<Character>>()
-    val navigation: LiveData<Event<Character>> = _navigation
+    private val _navigation = MutableLiveData<Event<Hero>>()
+    val navigation: LiveData<Event<Hero>> = _navigation
 
     init {
         initScope()
@@ -35,11 +34,11 @@ class MainViewModel(
     private fun refresh() {
         launch {
             _model.value = UiModel.Loading
-            _model.value = UiModel.Content(marvelRepository.findPopularHeroes().data?.results ?: emptyList())
+            _model.value = UiModel.Content(marvelRepository.findPopularHeroes())
         }
     }
 
-    fun onMovieClicked(hero: Character) {
+    fun onMovieClicked(hero: Hero) {
         _navigation.value = Event(hero)
     }
 
