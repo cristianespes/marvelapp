@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.model.server.MarvelRepository
+import com.cristianespes.marvelapp.ui.common.EventObserver
 import com.cristianespes.marvelapp.ui.common.app
 import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.startActivity
@@ -29,11 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.model.observe(this, Observer(::updateUi))
 
-        viewModel.navigation.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let {
-                startActivity<DetailActivity> {
-                    putExtra(DetailActivity.HERO, it.id)
-                }
+        viewModel.navigation.observe(this, EventObserver { id ->
+            startActivity<DetailActivity> {
+                putExtra(DetailActivity.HERO, id)
             }
         })
     }

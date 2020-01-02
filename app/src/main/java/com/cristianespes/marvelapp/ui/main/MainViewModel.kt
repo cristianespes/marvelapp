@@ -24,8 +24,8 @@ class MainViewModel(
             return _model
         }
 
-    private val _navigation = MutableLiveData<Event<Hero>>()
-    val navigation: LiveData<Event<Hero>> = _navigation
+    private val _navigation = MutableLiveData<Event<Int>>()
+    val navigation: LiveData<Event<Int>> = _navigation
 
     init {
         initScope()
@@ -39,7 +39,7 @@ class MainViewModel(
     }
 
     fun onMovieClicked(hero: Hero) {
-        _navigation.value = Event(hero)
+        _navigation.value = Event(hero.id)
     }
 
     override fun onCleared() {
