@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.cristianespes.data.MarvelRepository
+import com.cristianespes.data.repository.MarvelRepository
 import com.cristianespes.marvelapp.BuildConfig
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.data.database.RoomDataSource

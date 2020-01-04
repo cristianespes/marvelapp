@@ -1,13 +1,14 @@
 package com.cristianespes.marvelapp.data.database
 
-import com.cristianespes.data.LocalDataSource
+import com.cristianespes.data.source.LocalDataSource
 import com.cristianespes.marvelapp.data.toDomainHero
 import com.cristianespes.marvelapp.data.toRoomHero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.cristianespes.domain.Hero as DomainHero
 
-class RoomDataSource(db: MarvelDatabase) : LocalDataSource {
+class RoomDataSource(db: MarvelDatabase) :
+    LocalDataSource {
 
     private val marvelDao = db.marvelDao()
 

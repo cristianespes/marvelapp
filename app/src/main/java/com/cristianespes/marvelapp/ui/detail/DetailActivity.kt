@@ -3,7 +3,7 @@ package com.cristianespes.marvelapp.ui.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.cristianespes.data.MarvelRepository
+import com.cristianespes.data.repository.MarvelRepository
 import com.cristianespes.marvelapp.BuildConfig
 import com.cristianespes.marvelapp.R
 import com.cristianespes.marvelapp.data.database.RoomDataSource
@@ -31,13 +31,14 @@ class DetailActivity : AppCompatActivity() {
             val localDataSource = RoomDataSource(app.db)
             val remoteDataSource = MarvelDbDataSource()
 
-            val marvelRepository = MarvelRepository(
-                localDataSource,
-                remoteDataSource,
-                BuildConfig.API_TS,
-                BuildConfig.API_KEY,
-                BuildConfig.API_HASH
-            )
+            val marvelRepository =
+                MarvelRepository(
+                    localDataSource,
+                    remoteDataSource,
+                    BuildConfig.API_TS,
+                    BuildConfig.API_KEY,
+                    BuildConfig.API_HASH
+                )
 
             DetailViewModel(
                 intent.getIntExtra(HERO, -1),

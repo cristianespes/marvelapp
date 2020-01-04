@@ -1,5 +1,7 @@
-package com.cristianespes.data
+package com.cristianespes.data.repository
 
+import com.cristianespes.data.source.LocalDataSource
+import com.cristianespes.data.source.RemoteDataSource
 import com.cristianespes.domain.Hero
 
 class MarvelRepository(
@@ -13,8 +15,10 @@ class MarvelRepository(
     suspend fun getHeroes(): List<Hero> {
 
         if (localDataSource.isEmpty()) {
-            val heroes = remoteDataSource.getHeroes(tsKey, apiKey, apiHash)
-            localDataSource.saveHeroes(heroes)
+            for (x in 0 until 1500 step 100) {
+                val heroes = remoteDataSource.getHeroes(tsKey, apiKey, apiHash, offset = x)
+                localDataSource.saveHeroes(heroes)
+            }
         }
 
         return localDataSource.getHeroes()
@@ -24,16 +28,4 @@ class MarvelRepository(
 
     suspend fun update(hero: Hero) = localDataSource.update(hero)
 
-}
-
-interface LocalDataSource {
-    suspend fun isEmpty(): Boolean
-    suspend fun saveHeroes(heroes: List<Hero>)
-    suspend fun getHeroes(): List<Hero>
-    suspend fun findHeroById(id: Int): Hero
-    suspend fun update(hero: Hero)
-}
-
-interface RemoteDataSource {
-    suspend fun getHeroes(tsKey: String, apiKey: String, apiHash: String): List<Hero>
 }
