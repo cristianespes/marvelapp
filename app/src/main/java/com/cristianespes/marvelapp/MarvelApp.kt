@@ -2,7 +2,7 @@ package com.cristianespes.marvelapp
 
 import android.app.Application
 import androidx.room.Room
-import com.cristianespes.marvelapp.model.database.MarvelDatabase
+import com.cristianespes.marvelapp.data.database.MarvelDatabase
 
 class MarvelApp : Application() {
 

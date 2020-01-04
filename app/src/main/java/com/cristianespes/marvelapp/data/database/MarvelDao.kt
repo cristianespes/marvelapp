@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp.model.database
+package com.cristianespes.marvelapp.data.database
 
 import androidx.room.*
 

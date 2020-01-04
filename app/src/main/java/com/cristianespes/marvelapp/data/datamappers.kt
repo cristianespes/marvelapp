@@ -1,8 +1,8 @@
-package com.cristianespes.marvelapp.model
+package com.cristianespes.marvelapp.data
 
-import com.cristianespes.marvelapp.model.server.Character
+import com.cristianespes.marvelapp.data.server.Character
 import com.cristianespes.domain.Hero as DomainHero
-import com.cristianespes.marvelapp.model.database.Hero as RoomHero
+import com.cristianespes.marvelapp.data.database.Hero as RoomHero
 
 fun DomainHero.toRoomHero(): RoomHero = RoomHero(
         id,

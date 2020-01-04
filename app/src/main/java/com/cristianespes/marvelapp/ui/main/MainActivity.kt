@@ -7,8 +7,8 @@ import androidx.lifecycle.Observer
 import com.cristianespes.data.MarvelRepository
 import com.cristianespes.marvelapp.BuildConfig
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.database.RoomDataSource
-import com.cristianespes.marvelapp.model.server.MarvelDbDataSource
+import com.cristianespes.marvelapp.data.database.RoomDataSource
+import com.cristianespes.marvelapp.data.server.MarvelDbDataSource
 import com.cristianespes.marvelapp.ui.common.EventObserver
 import com.cristianespes.marvelapp.ui.common.app
 import com.cristianespes.marvelapp.ui.common.getViewModel

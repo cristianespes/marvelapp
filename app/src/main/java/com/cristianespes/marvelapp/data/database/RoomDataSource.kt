@@ -1,8 +1,8 @@
-package com.cristianespes.marvelapp.model.database
+package com.cristianespes.marvelapp.data.database
 
 import com.cristianespes.data.LocalDataSource
-import com.cristianespes.marvelapp.model.toDomainHero
-import com.cristianespes.marvelapp.model.toRoomHero
+import com.cristianespes.marvelapp.data.toDomainHero
+import com.cristianespes.marvelapp.data.toRoomHero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.cristianespes.domain.Hero as DomainHero

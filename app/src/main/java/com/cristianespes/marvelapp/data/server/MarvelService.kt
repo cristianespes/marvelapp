@@ -1,4 +1,4 @@
-package com.cristianespes.marvelapp.model.server
+package com.cristianespes.marvelapp.data.server
 
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
