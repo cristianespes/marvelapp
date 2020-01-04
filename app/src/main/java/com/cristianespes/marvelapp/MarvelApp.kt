@@ -3,6 +3,7 @@ package com.cristianespes.marvelapp
 import android.app.Application
 import androidx.room.Room
 import com.cristianespes.marvelapp.data.database.MarvelDatabase
+import com.facebook.stetho.Stetho
 
 class MarvelApp : Application() {
 
@@ -16,5 +17,7 @@ class MarvelApp : Application() {
             this,
             MarvelDatabase::class.java, "marvel-db"
         ).build()
+
+        Stetho.initializeWithDefaults(this)
     }
 }

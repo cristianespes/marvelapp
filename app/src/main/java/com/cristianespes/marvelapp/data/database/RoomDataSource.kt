@@ -7,8 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.cristianespes.domain.Hero as DomainHero
 
-class RoomDataSource(db: MarvelDatabase) :
-    LocalDataSource {
+class RoomDataSource(db: MarvelDatabase) : LocalDataSource {
 
     private val marvelDao = db.marvelDao()
 
