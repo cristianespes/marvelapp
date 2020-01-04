@@ -2,12 +2,17 @@ package com.cristianespes.marvelapp.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.cristianespes.marvelapp.model.database.Hero
-import com.cristianespes.marvelapp.model.server.MarvelRepository
+import com.cristianespes.domain.Hero
 import com.cristianespes.marvelapp.ui.common.ScopedViewModel
+import com.cristianespes.usecases.FindHeroById
+import com.cristianespes.usecases.ToggleHeroFavorite
 import kotlinx.coroutines.launch
 
-class DetailViewModel(private val heroId: Int, private val marvelRepository: MarvelRepository) : ScopedViewModel() {
+class DetailViewModel(
+    private val heroId: Int,
+    private val findHeroById: FindHeroById,
+    private val toggleHeroFavorite: ToggleHeroFavorite
+) : ScopedViewModel() {
 
     class UiModel(val hero: Hero)
 
@@ -20,13 +25,11 @@ class DetailViewModel(private val heroId: Int, private val marvelRepository: Mar
 
     fun onFavoriteClicked() = launch {
         _model.value?.hero?.let {
-            val updatedHero = it.copy(favorite = !it.favorite)
-            _model.value = UiModel(updatedHero)
-            marvelRepository.update(updatedHero)
+            _model.value = UiModel(toggleHeroFavorite.invoke(it))
         }
     }
 
     private fun findHero() = launch {
-            _model.value = UiModel(marvelRepository.findById(heroId))
-        }
+        _model.value = UiModel(findHeroById.invoke(heroId))
+    }
 }

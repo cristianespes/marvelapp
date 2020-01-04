@@ -3,6 +3,7 @@ package com.cristianespes.marvelapp.model.server
 import com.cristianespes.marvelapp.BuildConfig
 import com.cristianespes.marvelapp.MarvelApp
 import com.cristianespes.marvelapp.model.database.Hero
+import com.cristianespes.marvelapp.model.toRoomHero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -22,15 +23,15 @@ class MarvelRepository(application: MarvelApp) {
                     80
                 ).await()
 
-                insertHeroes(heroes.data?.results?.map(Character::convertToHero) ?: emptyList())
+                insertHeroes(heroes.data?.results?.map(Character::toRoomHero) ?: emptyList())
             }
 
-            getAll()
+            getAllHeroes()
         }
     }
 
     suspend fun findById(id: Int): Hero = withContext(Dispatchers.IO) {
-        db.marvelDao().findById(id)
+        db.marvelDao().findHeroById(id)
     }
 
     suspend fun update(hero: Hero) = withContext(Dispatchers.IO) {
@@ -38,11 +39,3 @@ class MarvelRepository(application: MarvelApp) {
     }
 
 }
-
-private fun Character.convertToHero() = Hero(
-    0,
-    name,
-    description,
-    modified,
-    thumbnail = thumbnail?.path.plus(".${thumbnail?.extension}")
-)

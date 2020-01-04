@@ -5,10 +5,10 @@ import androidx.room.*
 @Dao
 interface MarvelDao {
     @Query("SELECT * FROM Hero")
-    fun getAll(): List<Hero>
+    fun getAllHeroes(): List<Hero>
 
     @Query("SELECT * FROM Hero WHERE id = :id")
-    fun findById(id: Int): Hero
+    fun findHeroById(id: Int): Hero
 
     @Query("SELECT COUNT(id) FROM Hero")
     fun heroesCount(): Int

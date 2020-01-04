@@ -3,8 +3,8 @@ package com.cristianespes.marvelapp.ui.main
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.cristianespes.domain.Hero
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.database.Hero
 import com.cristianespes.marvelapp.ui.common.basicDiffUtil
 import com.cristianespes.marvelapp.ui.common.inflate
 import com.cristianespes.marvelapp.ui.common.loadUrl

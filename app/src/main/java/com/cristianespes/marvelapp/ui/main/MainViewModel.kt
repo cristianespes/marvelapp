@@ -2,14 +2,14 @@ package com.cristianespes.marvelapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.cristianespes.marvelapp.model.database.Hero
-import com.cristianespes.marvelapp.model.server.MarvelRepository
+import com.cristianespes.domain.Hero
 import com.cristianespes.marvelapp.ui.common.Event
 import com.cristianespes.marvelapp.ui.common.ScopedViewModel
+import com.cristianespes.usecases.GetHeroes
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val marvelRepository: MarvelRepository
+    private val getHeroes: GetHeroes
 ) : ScopedViewModel() {
 
     sealed class UiModel {
@@ -34,7 +34,7 @@ class MainViewModel(
     private fun refresh() {
         launch {
             _model.value = UiModel.Loading
-            _model.value = UiModel.Content(marvelRepository.findPopularHeroes())
+            _model.value = UiModel.Content(getHeroes.invoke())
         }
     }
 

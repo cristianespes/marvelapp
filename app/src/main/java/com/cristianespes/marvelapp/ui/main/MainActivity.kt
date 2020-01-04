@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.cristianespes.data.MarvelRepository
+import com.cristianespes.marvelapp.BuildConfig
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.model.server.MarvelRepository
+import com.cristianespes.marvelapp.model.database.RoomDataSource
+import com.cristianespes.marvelapp.model.server.MarvelDbDataSource
 import com.cristianespes.marvelapp.ui.common.EventObserver
 import com.cristianespes.marvelapp.ui.common.app
 import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.startActivity
 import com.cristianespes.marvelapp.ui.detail.DetailActivity
 import com.cristianespes.marvelapp.ui.main.MainViewModel.UiModel
+import com.cristianespes.usecases.GetHeroes
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +27,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = getViewModel { MainViewModel(MarvelRepository(app)) }
+        viewModel = getViewModel {
+            val localDataSource = RoomDataSource(app.db)
+            val remoteDataSource = MarvelDbDataSource()
+
+            MainViewModel(
+                GetHeroes(
+                    MarvelRepository(
+                        localDataSource,
+                        remoteDataSource,
+                        BuildConfig.API_TS,
+                        BuildConfig.API_KEY,
+                        BuildConfig.API_HASH
+                    )
+                )
+            )
+        }
 
         heroesAdapter = HeroesAdapter(viewModel::onMovieClicked)
         recyclerViewHeroes.adapter = heroesAdapter
