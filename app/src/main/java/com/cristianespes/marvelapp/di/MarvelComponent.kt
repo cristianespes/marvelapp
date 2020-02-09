@@ -1,18 +1,20 @@
 package com.cristianespes.marvelapp.di
 
 import android.app.Application
-import com.cristianespes.marvelapp.ui.detail.DetailViewModel
-import com.cristianespes.marvelapp.ui.main.MainViewModel
+import com.cristianespes.marvelapp.ui.detail.DetailActivityComponent
+import com.cristianespes.marvelapp.ui.detail.DetailActivityModule
+import com.cristianespes.marvelapp.ui.main.MainActivityComponent
+import com.cristianespes.marvelapp.ui.main.MainActivityModule
 import javax.inject.Singleton
 import dagger.BindsInstance
 import dagger.Component
 
 @Singleton
-@Component(modules = [AppModule::class, DataModule::class, UseCaseModule::class, ViewModelsModule::class])
+@Component(modules = [AppModule::class, DataModule::class])
 interface MarvelComponent {
 
-    val mainViewModel: MainViewModel
-    val detaiViewModel: DetailViewModel
+    fun plus(module: MainActivityModule): MainActivityComponent
+    fun plus(module: DetailActivityModule) : DetailActivityComponent
 
     @Component.Factory
     interface Factory {

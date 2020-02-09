@@ -22,11 +22,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var heroesAdapter: HeroesAdapter
 
-    private val viewModel: MainViewModel by lazy { getViewModel { app.component.mainViewModel } }
+    private lateinit var component: MainActivityComponent
+    private val viewModel: MainViewModel by lazy { getViewModel { component.mainViewModel } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        component = app.component.plus(MainActivityModule())
 
         heroesAdapter = HeroesAdapter(viewModel::onMovieClicked)
         recyclerViewHeroes.adapter = heroesAdapter

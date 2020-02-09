@@ -15,11 +15,14 @@ class DetailActivity : AppCompatActivity() {
         const val HERO = "DetailActivity:hero"
     }
 
-    private val viewModel by lazy { getViewModel { app.component.detaiViewModel } }
+    private lateinit var component: DetailActivityComponent
+    private val viewModel by lazy { getViewModel { component.detaiViewModel } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        component = app.component.plus(DetailActivityModule(intent.getIntExtra(HERO, -1)))
 
         viewModel.model.observe(this, Observer(::updateUi))
 
