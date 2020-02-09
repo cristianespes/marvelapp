@@ -20,29 +20,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
     private lateinit var heroesAdapter: HeroesAdapter
+
+    private val viewModel: MainViewModel by lazy { getViewModel { app.component.mainViewModel } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewModel = getViewModel {
-            val localDataSource = RoomDataSource(app.db)
-            val remoteDataSource = MarvelDbDataSource()
-
-            MainViewModel(
-                GetHeroes(
-                    MarvelRepository(
-                        localDataSource,
-                        remoteDataSource,
-                        BuildConfig.API_TS,
-                        BuildConfig.API_KEY,
-                        BuildConfig.API_HASH
-                    )
-                )
-            )
-        }
 
         heroesAdapter = HeroesAdapter(viewModel::onMovieClicked)
         recyclerViewHeroes.adapter = heroesAdapter

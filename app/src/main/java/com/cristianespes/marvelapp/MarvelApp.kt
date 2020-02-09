@@ -1,23 +1,23 @@
 package com.cristianespes.marvelapp
 
 import android.app.Application
-import androidx.room.Room
-import com.cristianespes.marvelapp.data.database.MarvelDatabase
+import com.cristianespes.marvelapp.di.DaggerMarvelComponent
+import com.cristianespes.marvelapp.di.MarvelComponent
 import com.facebook.stetho.Stetho
 
 class MarvelApp : Application() {
 
-    lateinit var db: MarvelDatabase
+    lateinit var component: MarvelComponent
         private set
 
     override fun onCreate() {
         super.onCreate()
 
-        db = Room.databaseBuilder(
-            this,
-            MarvelDatabase::class.java, "marvel-db"
-        ).build()
+        component = DaggerMarvelComponent
+            .factory()
+            .create(this)
 
         Stetho.initializeWithDefaults(this)
     }
+
 }

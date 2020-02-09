@@ -3,16 +3,10 @@ package com.cristianespes.marvelapp.ui.detail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.cristianespes.data.repository.MarvelRepository
-import com.cristianespes.marvelapp.BuildConfig
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.data.database.RoomDataSource
-import com.cristianespes.marvelapp.data.server.MarvelDbDataSource
 import com.cristianespes.marvelapp.ui.common.app
 import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.loadUrl
-import com.cristianespes.usecases.FindHeroById
-import com.cristianespes.usecases.ToggleHeroFavorite
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -21,32 +15,11 @@ class DetailActivity : AppCompatActivity() {
         const val HERO = "DetailActivity:hero"
     }
 
-    private lateinit var viewModel: DetailViewModel
+    private val viewModel by lazy { getViewModel { app.component.detaiViewModel } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
-        viewModel = getViewModel {
-            val localDataSource = RoomDataSource(app.db)
-            val remoteDataSource = MarvelDbDataSource()
-
-            val marvelRepository =
-                MarvelRepository(
-                    localDataSource,
-                    remoteDataSource,
-                    BuildConfig.API_TS,
-                    BuildConfig.API_KEY,
-                    BuildConfig.API_HASH
-                )
-
-            DetailViewModel(
-                intent.getIntExtra(HERO, -1),
-                FindHeroById(marvelRepository),
-                ToggleHeroFavorite(marvelRepository)
-            )
-        }
-
 
         viewModel.model.observe(this, Observer(::updateUi))
 
