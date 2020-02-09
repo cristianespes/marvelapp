@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.cristianespes.marvelapp.R
-import com.cristianespes.marvelapp.ui.common.app
-import com.cristianespes.marvelapp.ui.common.getViewModel
 import com.cristianespes.marvelapp.ui.common.loadUrl
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailActivity : AppCompatActivity() {
 
@@ -15,14 +16,13 @@ class DetailActivity : AppCompatActivity() {
         const val HERO = "DetailActivity:hero"
     }
 
-    private lateinit var component: DetailActivityComponent
-    private val viewModel by lazy { getViewModel { component.detaiViewModel } }
+    private val viewModel: DetailViewModel by currentScope.viewModel(this) {
+        parametersOf(intent.getIntExtra(HERO, -1))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
-        component = app.component.plus(DetailActivityModule(intent.getIntExtra(HERO, -1)))
 
         viewModel.model.observe(this, Observer(::updateUi))
 
