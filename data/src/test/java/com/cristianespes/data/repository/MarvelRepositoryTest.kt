@@ -2,7 +2,7 @@ package com.cristianespes.data.repository
 
 import com.cristianespes.data.source.LocalDataSource
 import com.cristianespes.data.source.RemoteDataSource
-import com.cristianespes.domain.Hero
+import com.cristianespes.testshared.mockedHero
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
@@ -87,14 +87,5 @@ class MarvelRepositoryTest {
             verify(localDataSource).update(movie)
         }
     }
-
-    private val mockedHero = Hero(
-        0,
-        "Spiderman",
-        "",
-        null,
-        null,
-        false
-    )
 
 }

@@ -1,9 +1,8 @@
-package com.cristianespes.usecases
+package com.cristianespes.testshared
 
 import com.cristianespes.domain.Hero
 
-
-internal val mockedHero = Hero(
+val mockedHero = Hero(
     0,
     "Spiderman",
     "",

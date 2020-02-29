@@ -1,6 +1,7 @@
 package com.cristianespes.usecases
 
 import com.cristianespes.data.repository.MarvelRepository
+import com.cristianespes.testshared.mockedHero
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
