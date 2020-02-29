@@ -6,11 +6,13 @@ import com.cristianespes.domain.Hero
 import com.cristianespes.marvelapp.ui.common.Event
 import com.cristianespes.marvelapp.ui.common.ScopedViewModel
 import com.cristianespes.usecases.GetHeroes
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val getHeroes: GetHeroes
-) : ScopedViewModel() {
+    private val getHeroes: GetHeroes,
+    uiDispatcher: CoroutineDispatcher
+) : ScopedViewModel(uiDispatcher) {
 
     sealed class UiModel {
         object Loading : UiModel()

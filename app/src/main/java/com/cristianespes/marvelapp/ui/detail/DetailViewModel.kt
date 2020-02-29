@@ -6,13 +6,15 @@ import com.cristianespes.domain.Hero
 import com.cristianespes.marvelapp.ui.common.ScopedViewModel
 import com.cristianespes.usecases.FindHeroById
 import com.cristianespes.usecases.ToggleHeroFavorite
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
     private val heroId: Int,
     private val findHeroById: FindHeroById,
-    private val toggleHeroFavorite: ToggleHeroFavorite
-) : ScopedViewModel() {
+    private val toggleHeroFavorite: ToggleHeroFavorite,
+    uiDispatcher: CoroutineDispatcher
+) : ScopedViewModel(uiDispatcher) {
 
     class UiModel(val hero: Hero)
 

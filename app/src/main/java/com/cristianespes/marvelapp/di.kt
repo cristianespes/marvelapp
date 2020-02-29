@@ -14,6 +14,8 @@ import com.cristianespes.marvelapp.ui.main.MainViewModel
 import com.cristianespes.usecases.FindHeroById
 import com.cristianespes.usecases.GetHeroes
 import com.cristianespes.usecases.ToggleHeroFavorite
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -33,6 +35,7 @@ private val appModule = module {
     single { MarvelDatabase.build(get()) }
     factory<LocalDataSource> { RoomDataSource(get()) }
     factory<RemoteDataSource> { MarvelDbDataSource() }
+    single<CoroutineDispatcher> { Dispatchers.Main }
 }
 
 private val dataModule = module {
@@ -41,12 +44,12 @@ private val dataModule = module {
 
 private val scopesModule = module {
     scope(named<MainActivity>()) {
-        viewModel { MainViewModel(get()) }
+        viewModel { MainViewModel(get(), get()) }
         scoped { GetHeroes(get()) }
     }
 
     scope(named<DetailActivity>()) {
-        viewModel { (id: Int) -> DetailViewModel(id, get(), get()) }
+        viewModel { (id: Int) -> DetailViewModel(id, get(), get(), get()) }
         scoped { FindHeroById(get()) }
         scoped { ToggleHeroFavorite(get()) }
     }
