@@ -38,7 +38,7 @@ private val appModule = module {
     single<CoroutineDispatcher> { Dispatchers.Main }
 }
 
-private val dataModule = module {
+val dataModule = module {
     factory { MarvelRepository(get(), get(), BuildConfig.API_TS, BuildConfig.API_KEY, BuildConfig.API_HASH) }
 }
 
