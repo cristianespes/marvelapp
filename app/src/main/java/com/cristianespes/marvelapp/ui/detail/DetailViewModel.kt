@@ -16,7 +16,7 @@ class DetailViewModel(
     uiDispatcher: CoroutineDispatcher
 ) : ScopedViewModel(uiDispatcher) {
 
-    class UiModel(val hero: Hero)
+    data class UiModel(val hero: Hero)
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
