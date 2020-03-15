@@ -56,3 +56,7 @@ dependencies {
     testImplementation androidxTestLibs.values()
     androidTestImplementation androidTestLibs.values()
 }
+
+repositories {
+    mavenCentral()
+}

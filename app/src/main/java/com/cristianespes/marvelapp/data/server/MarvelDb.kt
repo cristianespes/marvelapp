@@ -6,20 +6,19 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object MarvelDb {
+class MarvelDb(baseUrl: String) {
 
-    private val okHttpClient = HttpLoggingInterceptor().run {
+    val okHttpClient = HttpLoggingInterceptor().run {
         level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder().addInterceptor(this).build()
     }
 
     val service: MarvelService = Retrofit.Builder()
-        .baseUrl("https://gateway.marvel.com/v1/public/")
+        .baseUrl(baseUrl)
         .client(okHttpClient)
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .run { create<MarvelService>(
-            MarvelService::class.java) }
+        .run { create(MarvelService::class.java) }
 
 }

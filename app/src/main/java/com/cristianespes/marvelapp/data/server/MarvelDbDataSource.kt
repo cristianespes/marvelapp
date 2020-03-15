@@ -5,9 +5,9 @@ import com.cristianespes.domain.Hero
 import com.cristianespes.marvelapp.data.toDomainHero
 import com.cristianespes.marvelapp.data.toRoomHero
 
-class MarvelDbDataSource: RemoteDataSource {
+class MarvelDbDataSource(private val marvelDb: MarvelDb): RemoteDataSource {
     override suspend fun getHeroes(tsKey: String, apiKey: String, apiHash: String, offset: Int): List<Hero> {
-        return MarvelDb.service.listHeroesAsync(
+        return marvelDb.service.listHeroesAsync(
             tsKey,
             apiKey,
             apiHash,

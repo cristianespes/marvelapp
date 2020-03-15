@@ -6,6 +6,7 @@ import com.cristianespes.data.source.LocalDataSource
 import com.cristianespes.data.source.RemoteDataSource
 import com.cristianespes.marvelapp.data.database.MarvelDatabase
 import com.cristianespes.marvelapp.data.database.RoomDataSource
+import com.cristianespes.marvelapp.data.server.MarvelDb
 import com.cristianespes.marvelapp.data.server.MarvelDbDataSource
 import com.cristianespes.marvelapp.ui.detail.DetailActivity
 import com.cristianespes.marvelapp.ui.detail.DetailViewModel
@@ -34,8 +35,10 @@ fun Application.initDI() {
 private val appModule = module {
     single { MarvelDatabase.build(get()) }
     factory<LocalDataSource> { RoomDataSource(get()) }
-    factory<RemoteDataSource> { MarvelDbDataSource() }
+    factory<RemoteDataSource> { MarvelDbDataSource(get()) }
     single<CoroutineDispatcher> { Dispatchers.Main }
+    single(named("baseUrl")) { "https://gateway.marvel.com/v1/public/" }
+    single { MarvelDb(get(named("baseUrl"))) }
 }
 
 val dataModule = module {
